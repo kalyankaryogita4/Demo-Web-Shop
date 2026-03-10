@@ -1,3 +1,4 @@
+
 package pages;
 
 import org.openqa.selenium.By;
@@ -14,7 +15,8 @@ public class LoginPage {
     By loginLink = By.linkText("Log in");
     By email = By.id("Email");
     By password = By.id("Password");
-    By loginButton = By.xpath("//input[@value='Log in']");
+    By loginButton = By.cssSelector("input.login-button");
+    By errorMessage = By.cssSelector(".message-error");
 
     public void clickLoginLink() {
         driver.findElement(loginLink).click();
@@ -31,4 +33,9 @@ public class LoginPage {
     public void clickLoginButton() {
         driver.findElement(loginButton).click();
     }
+
+    public String getErrorMessage() {
+        return driver.findElement(errorMessage).getText();
+    }
 }
+
