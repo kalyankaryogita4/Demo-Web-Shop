@@ -1,11 +1,10 @@
-
 package stepDefinitions;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import io.cucumber.java.en.*;
 import hooks.Hooks;
+import io.cucumber.java.en.*;
 import pages.SearchPage;
 
 public class SearchDefinition {
@@ -13,17 +12,12 @@ public class SearchDefinition {
     WebDriver driver;
     SearchPage search;
 
-    @Given("user launches browser")
-    public void user_launches_browser() {
-
-        driver = Hooks.driver;
-        search = new SearchPage(driver);
-    }
-
     @When("user enters product name in search box")
     public void user_enters_product_name_in_search_box() {
 
-        search.enterProductName("book");
+        driver = Hooks.driver;
+        search = new SearchPage(driver);
+        search.enterProductName("Laptop");
     }
 
     @And("user clicks search button")
@@ -33,11 +27,22 @@ public class SearchDefinition {
     }
 
     @Then("product should be displayed in search result")
-    public void product_should_be_displayed_in_search_result()
-    {
+    public void product_should_be_displayed_in_search_result() {
 
-        String result = search.getSearchResult();
-        Assert.assertTrue(result.contains("book"));
+        Assert.assertTrue(search.isProductDisplayed());
+    }
+
+    @When("user enters invalid product name")
+    public void user_enters_invalid_product_name() {
+
+        driver = Hooks.driver;
+        search = new SearchPage(driver);
+        search.enterProductName("abcdxyz123");
+    }
+
+    @Then("no product message should be displayed")
+    public void no_product_message_should_be_displayed() {
+
+        Assert.assertTrue(search.isNoProductMessageDisplayed());
     }
 }
-
