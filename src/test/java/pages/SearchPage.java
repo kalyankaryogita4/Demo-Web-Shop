@@ -8,37 +8,24 @@ public class SearchPage {
 
     WebDriver driver;
 
-    // Constructor
     public SearchPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    // Locators
     By searchBox = By.id("small-searchterms");
-    By searchButton = By.xpath("//input[@value='Search']");
-    By productTitle = By.xpath("//h2[@class='product-title']");
-    By noProductMessage = By.xpath("//div[@class='no-result']");
+    By searchButton = By.cssSelector("input.search-box-button");
+    By searchResult = By.cssSelector(".product-title");
 
-    // Methods
-
-    // Enter product name
     public void enterProductName(String product) {
         driver.findElement(searchBox).sendKeys(product);
     }
 
-    // Click search button
     public void clickSearchButton() {
         driver.findElement(searchButton).click();
     }
 
-    // Verify product displayed
-    public boolean isProductDisplayed() {
-        return driver.findElement(productTitle).isDisplayed();
-    }
-
-    // Get message when product not found
-    public String getNoProductMessage() {
-        return driver.findElement(noProductMessage).getText();
+    public String getSearchResult() {
+        return driver.findElement(searchResult).getText();
     }
 }
 

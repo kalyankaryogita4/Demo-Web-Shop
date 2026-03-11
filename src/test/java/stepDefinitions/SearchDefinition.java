@@ -13,12 +13,17 @@ public class SearchDefinition {
     WebDriver driver;
     SearchPage search;
 
-    @When("user enters product name in search box")
-    public void user_enters_product_name_in_search_box() {
+    @Given("user launches browser")
+    public void user_launches_browser() {
 
         driver = Hooks.driver;
         search = new SearchPage(driver);
-        search.enterProductName("Laptop");
+    }
+
+    @When("user enters product name in search box")
+    public void user_enters_product_name_in_search_box() {
+
+        search.enterProductName("book");
     }
 
     @And("user clicks search button")
@@ -28,9 +33,11 @@ public class SearchDefinition {
     }
 
     @Then("product should be displayed in search result")
-    public void product_should_be_displayed_in_search_result() {
+    public void product_should_be_displayed_in_search_result()
+    {
 
-        Assert.assertTrue(search.isProductDisplayed());
+        String result = search.getSearchResult();
+        Assert.assertTrue(result.contains("book"));
     }
 }
 
